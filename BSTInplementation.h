@@ -18,6 +18,8 @@ public:
 	void TraverseBSTreePostorder(pTreeNode Root);
 
 public:
+
+	/*这是和LeetCode相关的操作*/
 	pTreeNode ConvertBSTtoGreaterTree(pTreeNode Root);
 	TNElementType BST_to_GT_Sum = 0;
 

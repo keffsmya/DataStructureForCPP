@@ -106,7 +106,7 @@ void BSTreeOperation::TraverseBSTreeInorder(pTreeNode Root)
 {
 	
 
-	if (Root->LeftChild != NULL)
+	if (Root->LeftChild)
 	{
 		TraverseBSTreePreorder(Root->LeftChild);
 	}
@@ -115,7 +115,7 @@ void BSTreeOperation::TraverseBSTreeInorder(pTreeNode Root)
 	cout <<""<< Root->value <<""<< endl;
 
 	/*******************/
-	if (Root->RightChild != NULL)
+	if (Root->RightChild)
 	{
 		TraverseBSTreePreorder(Root->RightChild);
 	}
@@ -123,11 +123,11 @@ void BSTreeOperation::TraverseBSTreeInorder(pTreeNode Root)
 
 void BSTreeOperation::TraverseBSTreePostorder(pTreeNode Root)
 {
-	if (Root->LeftChild != NULL)
+	if (Root->LeftChild)
 	{
 		TraverseBSTreePostorder(Root->LeftChild);
 	}
-	if (Root->RightChild != NULL)
+	if (Root->RightChild)
 	{
 		TraverseBSTreePostorder(Root->RightChild);
 	}
