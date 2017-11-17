@@ -1,0 +1,6 @@
+/Debug/
+*.obj
+*.log
+*.tlog
+*.idb
+*.pdb

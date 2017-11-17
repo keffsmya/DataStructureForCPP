@@ -107,7 +107,6 @@ bool BinaryTree::isSameTree(TreeNode* p, TreeNode* q)
 
 	//首先判断这两个根节点是否为空，不为空的情况下，直接返回比较的结果，
 	if (p == NULL || q == NULL) return (p == q);
-
 	return (p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right));
 }
 #pragma endregion

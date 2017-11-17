@@ -31,10 +31,6 @@ int main(void)
 
 	}
 
-	BSTO_Ptr->ConvertBSTtoGreaterTree(Root);
-	
-	BSTO_Ptr->TraverseBSTreePreorder(Root);
-
 
 	system("pause");
 	return 0;
