@@ -1,9 +1,9 @@
 #include "BTInplementation.h"
 #include <Algorithm>
-
+#include <queue>
 using namespace std;
 
-
+#pragma region LeetCode_687_LongestUnivaluePath
 int BinaryTree::longestUnivaluePath(TreeNode* root)
 {
 	int loop =0;
@@ -27,3 +27,40 @@ int BinaryTree::dfs(TreeNode* node,int& lup)
 	lup = max(lup, resl + resr);
 	return max(resl, resr);
 }
+#pragma endregion
+
+
+
+
+#pragma region LeetCode_637_AverageofLevelInBinaryTree
+///这个操作很常用，对于树的各层级操作最为合适
+vector<double> BinaryTree::averageOfLevels(TreeNode* root)
+{
+	vector<double> res;
+	queue<TreeNode*> q;
+	q.push(root);
+	while (!q.empty())
+	{
+		long temp = 0;
+		int s = q.size();
+		for (int i = 0; i < s; i++)
+		{
+			//返回队列头部元素的引用
+			TreeNode* t = q.front();
+			//然后把头部元素出列
+			q.pop();
+
+			//然后如果左右子项存在，就把这两个子项也入队
+			if (t->LeftChild) q.push(t->LeftChild);
+			if (t->RightChild) q.push(t->RightChild);
+			temp += t->value;
+		}
+		//然后进行运算，计算出每一层的总和平均
+		res.push_back((double)temp / s);
+	}
+	return res;
+}
+
+
+
+#pragma endregion

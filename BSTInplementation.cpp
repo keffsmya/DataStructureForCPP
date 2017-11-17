@@ -164,7 +164,7 @@ TreeNode* BSTreeOperation::trimBST(TreeNode* root, int L, int R)
 }
 
 
-
+#pragma region BSTreeOperation中与LeetCode相关的BST_TwoSum
 bool BSTreeOperation::TwoSum(pTreeNode root, int k)
 {
 	vector<int> nums;
@@ -172,7 +172,6 @@ bool BSTreeOperation::TwoSum(pTreeNode root, int k)
 	return FindTargetInASortedArray(nums, k);
 	
 }
-
 
 void BSTreeOperation::TraverseInroderForTwoSum(TreeNode* root, vector<int>& vec)
 {
@@ -194,6 +193,12 @@ bool BSTreeOperation::FindTargetInASortedArray(vector<int>& vec, int target)
 
 	return false;
 }
+#pragma endregion
+
+
+
+
+
 
 BSTree::BSTree(TNElementType val)
 {

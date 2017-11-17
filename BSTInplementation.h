@@ -30,15 +30,23 @@ public:
 public:
 
 	/*这是和LeetCode相关的操作*/
-
+	
+	
+	
+	//LeetCode_687_ConvertBSTtoGreaterTree
 	//将一个BST树中每一个点的数加上比他的大的节点的数再赋值回去
 	pTreeNode ConvertBSTtoGreaterTree(pTreeNode Root);
 	TNElementType BST_to_GT_Sum = 0;
 
+
+	///LeetCode_653_TwoSumIV-InputisaBST
 	//看这个BST中是否存在两个数加起来和目标值相同
 	bool TwoSum(pTreeNode root, int k);
 	void TraverseInroderForTwoSum(TreeNode* root,vector<int>& vec);
 	bool FindTargetInASortedArray(vector<int>& vec, int target);
+
+
+	
 };
 
 class NMTreeOperation
