@@ -1,2 +1,5 @@
 ﻿  MainProgram.cpp
+  BSTInplementation.cpp
+  正在生成代码...
+e:\visualstudioproject\datastructureforcpp\datastructureforcpp\bstinplementation.cpp(62): warning C4715: “BSTreeOperation::insertNode”: 不是所有的控件路径都返回值
   DataStructureForCPP.vcxproj -> E:\VisualStudioProject\DataStructureForCPP\Debug\DataStructureForCPP.exe

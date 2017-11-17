@@ -138,18 +138,18 @@ void BSTreeOperation::TraverseBSTreePostorder(pTreeNode Root)
 	/*******************/
 }
 
-
+///这个是适用于包括普通二叉树和BST，都可以达到效果
 pTreeNode BSTreeOperation::ConvertBSTtoGreaterTree(pTreeNode Root)
 {
-	if (Root)
-	{
-		ConvertBSTtoGreaterTree(Root->RightChild);
-		BSTreeOperation::BST_to_GT_Sum += Root->value;
-		//cout << "此节点从 " << Root->value << " 变成 " << BSTreeOperation::BST_to_GT_Sum << endl;
-		Root->value = BSTreeOperation::BST_to_GT_Sum;
+	if (!Root) return Root;
+	if (Root->RightChild)	ConvertBSTtoGreaterTree(Root->RightChild);
 		
-		ConvertBSTtoGreaterTree(Root->LeftChild);
-	}
+	BSTreeOperation::BST_to_GT_Sum += Root->value;
+	cout << "此节点从 " << Root->value << " 变成 " << BSTreeOperation::BST_to_GT_Sum << endl;
+	Root->value = BSTreeOperation::BST_to_GT_Sum;
+
+	if(Root->LeftChild)  ConvertBSTtoGreaterTree(Root->LeftChild);
+	
 	return Root;
 }
 

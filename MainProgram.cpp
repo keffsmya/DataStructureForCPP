@@ -22,7 +22,7 @@ int main(void)
 	int a = 0;
 
 	
-	for (int i = -20; i < 40; i++)
+	for (int i = 0; i < 40; i++)
 	{
 		a = i;
 		pTreeNode temp = BSTO_Ptr->insertNode(Root, a);
@@ -31,10 +31,8 @@ int main(void)
 
 	}
 
-	
-
 	BSTO_Ptr->ConvertBSTtoGreaterTree(Root);
-
+	
 	BSTO_Ptr->TraverseBSTreePreorder(Root);
 
 

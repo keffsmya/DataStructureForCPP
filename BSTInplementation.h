@@ -18,6 +18,11 @@ public:
 	void TraverseBSTreePostorder(pTreeNode Root);
 
 public:
+	/*变换相关*/
+	void ConvertBSTtoAVLT(pTreeNode Root);
+
+
+public:
 
 	/*这是和LeetCode相关的操作*/
 	pTreeNode ConvertBSTtoGreaterTree(pTreeNode Root);

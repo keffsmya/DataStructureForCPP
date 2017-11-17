@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BSTInplementation.h" />
+    <ClInclude Include="BTInplementation.h" />
     <ClInclude Include="CustomCalculator.h" />
     <ClInclude Include="DataStructure.h" />
     <ClInclude Include="LeetCode_10_RegularExpressionMatching.h" />
@@ -173,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BSTInplementation.cpp" />
+    <ClCompile Include="BTInplementation.cpp" />
     <ClCompile Include="class LeetCode_10_RegularExpressionMatching.cpp" />
     <ClCompile Include="MainProgram.cpp" />
     <ClCompile Include="ifdef_TryABit.cpp" />

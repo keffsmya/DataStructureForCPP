@@ -90,6 +90,9 @@
     <ClInclude Include="BSTInplementation.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BTInplementation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -162,6 +165,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="BSTInplementation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BTInplementation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
