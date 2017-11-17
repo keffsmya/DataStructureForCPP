@@ -65,38 +65,49 @@ vector<double> BinaryTree::averageOfLevels(TreeNode* root)
 
 
 #pragma region LeetCode_100_SameTree
+//这一题的比较条件是引用到同一个节点才算是相同
 bool BinaryTree::isSameTree(TreeNode* p, TreeNode* q)
 {
-	queue<TreeNode*> queue1;
-	queue<TreeNode*> queue2;
+	//queue<TreeNode*> queue1;
+	//queue<TreeNode*> queue2;
 
-	queue1.push(p);
-	queue2.push(q);
+	//queue1.push(p);
+	//queue2.push(q);
 
-	while ((!queue1.empty()) && (!queue2.empty()))
-	{
-		if (queue1.size() != queue2.size())
-		{
-			return false;
-		}
+	//while ((!queue1.empty()) && (!queue2.empty()))
+	//{
+	//	if (queue1.size() != queue2.size())
+	//	{
+	//		return false;
+	//	}
 
-		for (int i = 0; i < queue1.size(); i++)
-		{
-			TreeNode* TNT1 = queue1.front();
-			TreeNode* TNT2 = queue2.front();
+	//	for (int i = 0; i < queue1.size(); i++)
+	//	{
+	//		TreeNode* TNT1 = queue1.front();
+	//		TreeNode* TNT2 = queue2.front();
 
-			if (TNT1->val != TNT2->val) return false;
+	//		if (TNT1->val != TNT2->val) return false;
 
-			queue1.pop();
-			queue2.pop();
+	//		queue1.pop();
+	//		queue2.pop();
 
-			if (TNT1->left) queue1.push(TNT1->left);
-			if(TNT1->right) queue1.push(TNT1->right);
+	//		if (TNT1->left) queue1.push(TNT1->left);
+	//		if(TNT1->right) queue1.push(TNT1->right);
 
-			if (TNT2->left) queue2.push(TNT2->left);
-			if (TNT2->right) queue2.push(TNT2->right);
-		}
-	}
-	return true;
+	//		if (TNT2->left) queue2.push(TNT2->left);
+	//		if (TNT2->right) queue2.push(TNT2->right);
+	//	}
+	//}
+	//return true;
+
+
+
+
+	/*上面为尝试部分，是假设两个节点不同，但是里面的元素的值相同*/
+
+	//首先判断这两个根节点是否为空，不为空的情况下，直接返回比较的结果，
+	if (p == NULL || q == NULL) return (p == q);
+
+	return (p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right));
 }
 #pragma endregion
