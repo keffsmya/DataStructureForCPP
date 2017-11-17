@@ -6,6 +6,7 @@
 #include "BSTInplementation.h"
 #include <iostream>
 #include <map>
+#include <set>
 
 using namespace std;
 
@@ -151,6 +152,47 @@ pTreeNode BSTreeOperation::ConvertBSTtoGreaterTree(pTreeNode Root)
 	if(Root->LeftChild)  ConvertBSTtoGreaterTree(Root->LeftChild);
 	
 	return Root;
+}
+
+
+TreeNode* BSTreeOperation::trimBST(TreeNode* root, int L, int R)
+{
+	if (!root) return NULL;
+
+	if (root->value > R) return trimBST(root->LeftChild, L, R);
+	if (root->value < L) return trimBST(root->RightChild, L, R);
+}
+
+
+
+bool BSTreeOperation::TwoSum(pTreeNode root, int k)
+{
+	vector<int> nums;
+	TraverseInroderForTwoSum(root, nums);
+	return FindTargetInASortedArray(nums, k);
+	
+}
+
+
+void BSTreeOperation::TraverseInroderForTwoSum(TreeNode* root, vector<int>& vec)
+{
+	if (!root) return;
+	 TraverseInroderForTwoSum(root->LeftChild,vec);
+	vec.push_back(root->value);
+	 TraverseInroderForTwoSum(root->RightChild,vec);
+}
+
+bool BSTreeOperation::FindTargetInASortedArray(vector<int>& vec, int target)
+{
+	for (int i = 0, j = (int)vec.size()-1; i < j;)
+	{
+		int sum = vec[i] + vec[j];
+		if (target == sum) return true;
+		if (target > sum) i++;
+		else j--;
+	}
+
+	return false;
 }
 
 BSTree::BSTree(TNElementType val)
