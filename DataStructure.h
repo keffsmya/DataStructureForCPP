@@ -17,21 +17,21 @@ typedef int TNElementType;
 typedef struct TreeNode
 {
 public:
-	TNElementType value;
-	TreeNode* LeftChild;
-	TreeNode* RightChild;
-	TreeNode* Father;
+	TNElementType val;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode* father;
 
 public:
 	TreeNode()
 	{
-		value = 0;
-		LeftChild= RightChild = Father = NULL;
+		val = 0;
+		left = right = father = NULL;
 	}
-	TreeNode(TNElementType val)
+	TreeNode(TNElementType value)
 	{
-		value = val;
-		LeftChild = RightChild = Father = NULL;
+		val = value;
+		left = right = father = NULL;
 	}
 }*pTreeNode;
 

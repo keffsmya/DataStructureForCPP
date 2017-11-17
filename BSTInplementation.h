@@ -6,6 +6,7 @@
 #include "stdafx.h"
 #include "DataStructure.h"
 
+using namespace std;
 class BSTreeOperation
 {
 public:

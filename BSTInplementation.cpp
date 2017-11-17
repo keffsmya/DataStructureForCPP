@@ -25,34 +25,34 @@ pTreeNode BSTreeOperation::insertNode(pTreeNode Root, TNElementType &val)
 		return NULL;
 	}
 	//这是值小于根节点值的情况下
-	if ((Root->value)>val)
+	if ((Root->val)>val)
 	{
-		if (Root->LeftChild)
+		if (Root->left)
 		{
 			
-			insertNode(Root->LeftChild, val);
+			insertNode(Root->left, val);
 		}
 		else
 		{
 			pTreeNode newNodeL = new TreeNode(val);
-			Root->LeftChild = newNodeL;
-			Root->LeftChild->Father = Root;
+			Root->left = newNodeL;
+			Root->left->father = Root;
 			//cout << "创建了个新的左树节点，" << "键值为：" << " " << val << "  父节点是 ：" << Root << endl;
 			return newNodeL;
 
 		}
 	}
-	else if (val > Root->value)
+	else if (val > Root->val)
 	{
-		if (Root->RightChild)
+		if (Root->right)
 		{
-			insertNode(Root->RightChild, val);
+			insertNode(Root->right, val);
 		}
 		else
 		{
 			pTreeNode newNodeR = new TreeNode(val);
-			Root->RightChild = newNodeR;
-			Root->RightChild->Father = Root;
+			Root->right = newNodeR;
+			Root->right->father = Root;
 			//cout << "创建了个新的右树节点，" << "键值为：" << " " << val << "  父节点是 ：" << Root << endl;
 			return newNodeR;
 		}
@@ -71,9 +71,9 @@ int BSTreeOperation::CalculateTheNodeDepth(pTreeNode Root,pTreeNode node)
 	if (Root == node) return 1;
 
 	int d;
-	d = CalculateTheNodeDepth(Root->LeftChild, node);
+	d = CalculateTheNodeDepth(Root->left, node);
 	if (d > 0) return d + 1;
-	d = CalculateTheNodeDepth(Root->RightChild, node);
+	d = CalculateTheNodeDepth(Root->right, node);
 	if (d > 0) return d + 1;
 
 	return 0;
@@ -87,18 +87,18 @@ void BSTreeOperation::TraverseBSTreePreorder(pTreeNode Root)
 	}
 	/*前序遍历所做的操作*/
 
-	cout <<" "<< Root->value << " "<<endl;
+	cout <<" "<< Root->val << " "<<endl;
 
 	/*******************/
 	
-	if (Root->LeftChild)
+	if (Root->left)
 	{
-		TraverseBSTreePreorder(Root->LeftChild);
+		TraverseBSTreePreorder(Root->left);
 	}
 	
-	if (Root->RightChild)
+	if (Root->right)
 	{
-		TraverseBSTreePreorder(Root->RightChild);
+		TraverseBSTreePreorder(Root->right);
 	}
 	
 }
@@ -107,34 +107,34 @@ void BSTreeOperation::TraverseBSTreeInorder(pTreeNode Root)
 {
 	
 
-	if (Root->LeftChild)
+	if (Root->left)
 	{
-		TraverseBSTreePreorder(Root->LeftChild);
+		TraverseBSTreePreorder(Root->left);
 	}
 	/*中序遍历所做的操作*/
 
-	cout <<""<< Root->value <<""<< endl;
+	cout <<""<< Root->val <<""<< endl;
 
 	/*******************/
-	if (Root->RightChild)
+	if (Root->right)
 	{
-		TraverseBSTreePreorder(Root->RightChild);
+		TraverseBSTreePreorder(Root->right);
 	}
 }
 
 void BSTreeOperation::TraverseBSTreePostorder(pTreeNode Root)
 {
-	if (Root->LeftChild)
+	if (Root->left)
 	{
-		TraverseBSTreePostorder(Root->LeftChild);
+		TraverseBSTreePostorder(Root->left);
 	}
-	if (Root->RightChild)
+	if (Root->right)
 	{
-		TraverseBSTreePostorder(Root->RightChild);
+		TraverseBSTreePostorder(Root->right);
 	}
 	/*后序遍历所做的操作*/
 
-	cout << "" << Root->value << "" << endl;
+	cout << "" << Root->val << "" << endl;
 
 	/*******************/
 }
@@ -143,13 +143,13 @@ void BSTreeOperation::TraverseBSTreePostorder(pTreeNode Root)
 pTreeNode BSTreeOperation::ConvertBSTtoGreaterTree(pTreeNode Root)
 {
 	if (!Root) return Root;
-	if (Root->RightChild)	ConvertBSTtoGreaterTree(Root->RightChild);
+	if (Root->right)	ConvertBSTtoGreaterTree(Root->right);
 		
-	BSTreeOperation::BST_to_GT_Sum += Root->value;
-	cout << "此节点从 " << Root->value << " 变成 " << BSTreeOperation::BST_to_GT_Sum << endl;
-	Root->value = BSTreeOperation::BST_to_GT_Sum;
+	BSTreeOperation::BST_to_GT_Sum += Root->val;
+	cout << "此节点从 " << Root->val << " 变成 " << BSTreeOperation::BST_to_GT_Sum << endl;
+	Root->val = BSTreeOperation::BST_to_GT_Sum;
 
-	if(Root->LeftChild)  ConvertBSTtoGreaterTree(Root->LeftChild);
+	if(Root->left)  ConvertBSTtoGreaterTree(Root->left);
 	
 	return Root;
 }
@@ -159,8 +159,8 @@ TreeNode* BSTreeOperation::trimBST(TreeNode* root, int L, int R)
 {
 	if (!root) return NULL;
 
-	if (root->value > R) return trimBST(root->LeftChild, L, R);
-	if (root->value < L) return trimBST(root->RightChild, L, R);
+	if (root->val > R) return trimBST(root->left, L, R);
+	if (root->val < L) return trimBST(root->right, L, R);
 }
 
 
@@ -176,9 +176,9 @@ bool BSTreeOperation::TwoSum(pTreeNode root, int k)
 void BSTreeOperation::TraverseInroderForTwoSum(TreeNode* root, vector<int>& vec)
 {
 	if (!root) return;
-	 TraverseInroderForTwoSum(root->LeftChild,vec);
-	vec.push_back(root->value);
-	 TraverseInroderForTwoSum(root->RightChild,vec);
+	 TraverseInroderForTwoSum(root->left,vec);
+	vec.push_back(root->val);
+	 TraverseInroderForTwoSum(root->right,vec);
 }
 
 bool BSTreeOperation::FindTargetInASortedArray(vector<int>& vec, int target)
@@ -203,5 +203,5 @@ bool BSTreeOperation::FindTargetInASortedArray(vector<int>& vec, int target)
 BSTree::BSTree(TNElementType val)
 {
 	RootPtr = (pTreeNode)malloc(sizeof(TreeNode));
-	RootPtr->value = 10;
+	RootPtr->val = val;
 }

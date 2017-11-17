@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "BTInplementation.h"
 #include <Algorithm>
 #include <queue>
@@ -16,12 +17,12 @@ int BinaryTree::longestUnivaluePath(TreeNode* root)
 int BinaryTree::dfs(TreeNode* node,int& lup)
 {
 	//这是两个迭代式，返回子项的ln和rn，在没有子项的情况下为
-	int ln = node->LeftChild ? dfs(node->LeftChild, lup) : 0;
-	int rn = node->RightChild ? dfs(node-> RightChild, lup) : 0;
+	int ln = node->left ? dfs(node->left, lup) : 0;
+	int rn = node->right ? dfs(node->right, lup) : 0;
 
 	//这里是将他们和子项进行对比，看是否值相等，相等的话，就是子项返回的数值上加1，
-	int resl = node->LeftChild != NULL&&node->value == node->LeftChild->value ? ln + 1 : 0;
-	int resr = node->RightChild != NULL&&node->value == node->RightChild->value ? rn + 1 : 0;
+	int resl = node->left != NULL&&node->val == node->left->val ? ln + 1 : 0;
+	int resr = node->right != NULL&&node->val == node->right->val ? rn + 1 : 0;
 
 	//因为有两个子项，所以数值较大的那个子项的数值会被保留下来，因为求的是最大相同分支长度
 	lup = max(lup, resl + resr);
@@ -51,16 +52,51 @@ vector<double> BinaryTree::averageOfLevels(TreeNode* root)
 			q.pop();
 
 			//然后如果左右子项存在，就把这两个子项也入队
-			if (t->LeftChild) q.push(t->LeftChild);
-			if (t->RightChild) q.push(t->RightChild);
-			temp += t->value;
+			if (t->left) q.push(t->left);
+			if (t->right) q.push(t->right);
+			temp += t->val;
 		}
 		//然后进行运算，计算出每一层的总和平均
 		res.push_back((double)temp / s);
 	}
 	return res;
 }
+#pragma endregion
 
 
+#pragma region LeetCode_100_SameTree
+bool BinaryTree::isSameTree(TreeNode* p, TreeNode* q)
+{
+	queue<TreeNode*> queue1;
+	queue<TreeNode*> queue2;
 
+	queue1.push(p);
+	queue2.push(q);
+
+	while ((!queue1.empty()) && (!queue2.empty()))
+	{
+		if (queue1.size() != queue2.size())
+		{
+			return false;
+		}
+
+		for (int i = 0; i < queue1.size(); i++)
+		{
+			TreeNode* TNT1 = queue1.front();
+			TreeNode* TNT2 = queue2.front();
+
+			if (TNT1->val != TNT2->val) return false;
+
+			queue1.pop();
+			queue2.pop();
+
+			if (TNT1->left) queue1.push(TNT1->left);
+			if(TNT1->right) queue1.push(TNT1->right);
+
+			if (TNT2->left) queue2.push(TNT2->left);
+			if (TNT2->right) queue2.push(TNT2->right);
+		}
+	}
+	return true;
+}
 #pragma endregion

@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "DataStructure.h"
 
-
+using namespace std;
 typedef class BinaryTree
 {
 public:
@@ -14,6 +14,9 @@ public:
 
 	//LeetCode_637_AverageofLevelInBinaryTree
 	vector<double> averageOfLevels(TreeNode* root);
+
+	//LeetCode_100_SameTree
+	bool isSameTree(TreeNode* p, TreeNode* q);
 private:
 	int dfs(TreeNode* node, int& lup);
 }*pBinaryTree;
