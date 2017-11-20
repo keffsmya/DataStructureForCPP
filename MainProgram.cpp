@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <vector>
+#include <map>
 
 #include "DataStructure.h"
 #include "BSTInplementation.h"
@@ -15,21 +16,36 @@ using namespace std;
 
 int main(void)
 {
-	//pBSTree MyTree = new BSTree(10);
-	vector<pTreeNode> myvec;
-	pTreeNode Root = new TreeNode(10);
-	BSTreeOperation* BSTO_Ptr = new BSTreeOperation();
-	int a = 0;
+	map<int, string> mapStudent;
 
-	
-	for (int i = 0; i < 40; i++)
-	{
-		a = i;
-		pTreeNode temp = BSTO_Ptr->insertNode(Root, a);
-		myvec.push_back(temp);
-		
+	pair<map<int, string>::iterator, bool> Insert_Pair;
 
-	}
+	Insert_Pair = mapStudent.insert(pair<int, string>(1, "student_one"));
+
+	if (Insert_Pair.second == true)
+
+		cout << "Insert Successfully" << endl;
+
+	else
+
+		cout << "Insert Failure" << endl;
+
+	Insert_Pair = mapStudent.insert(pair<int, string>(1, "student_two"));
+
+	if (Insert_Pair.second == true)
+
+		cout << "Insert Successfully" << endl;
+
+	else
+
+		cout << "Insert Failure" << endl;
+
+	map<int, string>::iterator iter;
+
+	for (iter = mapStudent.begin(); iter != mapStudent.end(); iter++)
+
+		cout << iter->first << ' ' << iter->second << endl;
+
 
 
 	system("pause");
