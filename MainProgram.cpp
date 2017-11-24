@@ -14,41 +14,43 @@
 
 using namespace std;
 
+
+class MainProgramNeed
+{
+public:
+	void function1(int& targetNum, string& str)
+	{
+		char buff[4];
+		memcpy(buff, &targetNum, sizeof(int));
+
+		for (int i = 0; i < 4; i++)
+		{
+			str.push_back(buff[i]);
+			cout << "we push a number into char[4] ,this number is ";
+			cout << targetNum << endl;
+		}
+		int len = str.length();
+		for (int i = 0; i << len; i++)
+		{
+			cout << str[i] << " " << endl;
+		}
+	}
+};
+
 int main(void)
 {
-	map<int, string> mapStudent;
+	string mystr;
+	int targetNum;
+	MainProgramNeed* mfn = new MainProgramNeed();
+	while (true)
+	{
+		cin >> targetNum;
 
-	pair<map<int, string>::iterator, bool> Insert_Pair;
-
-	Insert_Pair = mapStudent.insert(pair<int, string>(1, "student_one"));
-
-	if (Insert_Pair.second == true)
-
-		cout << "Insert Successfully" << endl;
-
-	else
-
-		cout << "Insert Failure" << endl;
-
-	Insert_Pair = mapStudent.insert(pair<int, string>(1, "student_two"));
-
-	if (Insert_Pair.second == true)
-
-		cout << "Insert Successfully" << endl;
-
-	else
-
-		cout << "Insert Failure" << endl;
-
-	map<int, string>::iterator iter;
-
-	for (iter = mapStudent.begin(); iter != mapStudent.end(); iter++)
-
-		cout << iter->first << ' ' << iter->second << endl;
-
-
+		mfn->function1(targetNum, mystr);
+	}
 
 	system("pause");
 	return 0;
 }
 
+ 

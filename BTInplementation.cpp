@@ -4,6 +4,8 @@
 #include <queue>
 #include <stack>
 #include <map>
+#include <string>
+
 using namespace std;
 
 #pragma region LeetCode_687_LongestUnivaluePath
@@ -448,3 +450,310 @@ int BinaryTree::countSubtreeSums(TreeNode* node, map<int, int> &counts, int& max
 }
 
 #pragma endregion
+
+
+
+#pragma region LeetCode_404_SumofLeftLeaves
+
+int BinaryTree::sumOfLeftLeaves(TreeNode* root)
+{
+	int res;
+	res = countLeftLeavesSum(root);
+	return res;
+}
+
+int BinaryTree::countLeftLeavesSum(TreeNode* root)
+{
+	if (!root)  return 0;
+	int sum = 0;
+	//左子树的所有左叶节点之和
+	sum += countLeftLeavesSum(root->left);
+	//右子树的所有左叶节点之和
+	sum += countLeftLeavesSum(root->right);
+
+	//左后后序 比较看这个节点是否是叶节点，如果是，就把这个值累加起来
+	if (root->left&&!(root->left->left)&&!(root->left->right))  sum += root->left->val;
+	return sum;
+}
+
+#pragma endregion
+
+
+
+/*!!!!!!!!!!!未掌握!!!!!!!!!!!*/
+#pragma region LeetCode_513_FindBottomLeftTreeValue
+int BinaryTree::findBottomLeftValue(TreeNode* root)
+{
+	int maxDepth = 0;
+	int leftVal = root->val;
+
+	findBottomLeftValue(root, maxDepth, leftVal, 0);
+	return leftVal;
+
+}
+
+void BinaryTree::findBottomLeftValue(TreeNode* root, int& maxDepth, int& leftVal, int depth)
+{
+	if (!root) return;
+	//traverse left and right
+	findBottomLeftValue(root->left, maxDepth, leftVal, depth + 1);
+	findBottomLeftValue(root->right, maxDepth, leftVal, depth + 1);
+
+	//Update LeftVal And MaxDepth
+	if (depth > maxDepth) {
+		maxDepth = depth;
+		leftVal = root->val;
+	}
+}
+#pragma endregion 
+
+#pragma region LeetCode_671_SecondMinimunNodeInaBinaryTree
+/*Given a non - empty special binary tree consisting of nodes with the non - negative value, where each node in this tree has exactly two or zero sub - node.
+  If the node has two sub - nodes, then this node's value is the smaller value among its two sub-nodes.
+给出一个非空的特殊二叉树，这个二叉树由非负数组成，每一个节点要不是两个子节点要不就没有子节点，而且，如果这个节点有两个子节点的话，这个节点的值就会小于他的两个子节点
+  Given such a binary tree, you need to output the second minimum value in the set made of all the nodes' value in the whole tree.
+
+  If no such second minimum value exists, output - 1 instead.*/
+
+int BinaryTree::findSecondMinimumValue(TreeNode* root)
+{
+	//浪费空间的简单做法
+#pragma region Easyway
+	/*if (!root) return -1;
+
+	vector<int> resv;
+	findSecondMinimumValue(root, resv);
+	std::sort(resv.begin(), resv.end());
+	switch ((int)resv.size())
+	{
+
+	case 0:
+	case 1:
+		return -1;
+	default:
+		int comp = resv[0];
+		int temp = INT_MAX;
+		for (int i = 0; i<(int)resv.size(); i++)
+		{
+
+			temp = resv[i];
+			if (comp != temp) break;
+			else if (i == (int)resv.size() - 1) return -1;
+		}
+		return temp;
+
+	}*/
+#pragma endregion Easyway
+
+#pragma region DepthFirst Search
+	if (!root) return -1;
+	int ans = dfs_secondMinVal(root, root->val);
+	return ans;
+#pragma endregion DepthFirst Search
+
+
+}
+
+void BinaryTree::findSecondMinimumValue(TreeNode* root, vector<int>& vec)
+{
+	if (!root) return;
+
+	//Traverse left and right tree
+	findSecondMinimumValue(root->left, vec);
+	findSecondMinimumValue(root->right, vec);
+
+	vec.push_back(root->val);
+
+}
+
+//一个节点包含三个引用，所以应该充分利用
+int BinaryTree::dfs_secondMinVal(TreeNode* p, int first)
+{
+	//当前结点不存在
+	if (p == nullptr) return -1;
+	//当前节点的值不能与深度优先的保留值
+	if (p->val != first) return p->val;
+	//下面的就是在等于预留值的情况下
+	//遍历两个子树
+	int left = dfs_secondMinVal(p->left, first), right = dfs_secondMinVal(p->right, first);
+	// if all nodes of a subtree = root->val, 
+	// there is no second minimum value, return -1
+	//如果一边子树的值等于-1就意味着这边子树不存在，直接返回另一边子树的结果
+	if (left == -1) return right;
+	if (right == -1) return left;
+	//在两边子树都存在的情况下，返回较小的那一个，因为本身这个节点的值根据题意是最小的
+	//所以返回min(left, right)意味着是这个三个节点中倒数第二小的，也就符合题目要求
+	return min(left, right);
+}
+
+#pragma endregion
+
+
+#pragma region LeetCode_617_MergeTwoBinaryTrees
+TreeNode* BinaryTree::mergeTrees(TreeNode* t1, TreeNode* t2)
+{
+#pragma region way_CreateNewTrees
+	if (!t1 && !t2) return nullptr;
+	else if (!t1) return t2;
+	else if (!t2) return t1;
+
+
+	TreeNode* node = new TreeNode(t1->val + t2->val);
+	node->left = mergeTrees(t1->left, t2->left);
+	node->right = mergeTrees(t1->right, t2->right);
+	return node;
+#pragma endregion
+
+
+	
+}
+
+
+#pragma endregion
+
+/*!!!!!!!!!!!未掌握!!!!!!!!!!!*/
+#pragma region LeetCode_450_DeleteNodeinaBST
+TreeNode* BinaryTree::deleteNode(TreeNode* root, int key)
+{
+	//root不存在的情况下
+	if (!root) return nullptr;
+	//如果root的值等于key
+	if (root->val == key) {
+		//这种情况下有两种情况
+		if (!root->right) {
+			//没有右子树，直接把左子树上位
+			TreeNode* left = root->left;
+			delete root;
+			return left;
+		}
+		else 
+		{
+			//右子树存在的情况下，要找到这个右子树中所有值中最小的那个
+			//将他赋值上去，确保其他所有数都比他大，这样一定程度上对这个树的改动程度最小
+			TreeNode* right = root->right;
+			while (right->left)
+				right = right->left;
+			swap(root->val, right->val);
+		}
+	}
+	//然后就是进行遍历
+	root->left = deleteNode(root->left, key);
+	root->right = deleteNode(root->right, key);
+	return root;
+}
+#pragma endregion
+
+/*!!!!!!!!!!!精巧的方法!!!!!!!!!!!*/
+#pragma region LeetCode_116_PopulatingNextRightPointersInEachNode
+//此题只满足完美二叉树
+void BinaryTree::connect(TreeLinkNode *root) {
+	if (!root)
+		return;
+	while (root->left)
+	{
+		TreeLinkNode *p = root;
+		while (p)
+		{
+			//首先是p->left的left设为p->right
+			p->left->next = p->right;
+			//然后再检查是否有他的链接节点存在，有的话把相对左边的节点的右边子节点和相对右边的节点的左边子节点相连接
+			if (p->next)
+				p->right->next = p->next->left;
+
+			//然后P的引用移动到p->next;
+			p = p->next;
+		}
+		//在这一层遍历完了以后，进入下一层到最左边的节点
+		root = root->left;
+	}
+}
+
+
+#pragma endregion
+
+
+
+#pragma region LeetCode_449_SerializeandDeserializeBST
+//Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+//
+//Design an algorithm to serialize and deserialize a binary search tree.There is no restriction on how your serialization / deserialization algorithm should work.You just need to ensure that a binary search tree can be serialized to a string and this string can be deserialized to the original tree structure.
+//
+//The encoded string should be as compact as possible.
+//
+//Note: Do not use class member / global / static variables to store states.Your serialize and deserialize algorithms should be stateless.
+
+// Encodes a tree to a single string.
+string BinaryTree::serialize(TreeNode* root) {
+
+	string order;
+	//inorderDFS(root, order);
+	return order;
+}
+
+//前序深度优先搜索
+inline void BinaryTree::inorderDFS(TreeNode* root, string& order) 
+{
+	if (!root) return;
+	//使用一个char数组体积为四
+	char buf[4];
+	//把root->val的值拷贝到buf这个数组里面，内存分配大小为int型的大小
+	//因为一个int是32位，而char是8位，所以使用大小为4的char数组来装数字，出于性能考虑
+	memcpy(buf, &(root->val), sizeof(int)); //burn the int into 4 chars
+
+	//然后把buf里面的数字按数字4位4位的加到指定的string末尾
+	for (int i = 0; i<4; i++) order.push_back(buf[i]);
+
+	inorderDFS(root->left, order);
+	inorderDFS(root->right, order);
+}
+/*
+std::vector<std::string> split(std::string str, std::string pattern)
+{
+	std::string::size_type pos;
+	std::vector<std::string> result;
+	str += pattern;//扩展字符串以方便操作
+	int size = str.size();
+
+	for (int i = 0; i<size; i++)
+	{
+		pos = str.find(pattern, i);
+		if (pos<size)
+		{
+			std::string s = str.substr(i, pos - i);
+			result.push_back(s);
+			i = pos + pattern.size() - 1;
+		}
+	}
+	return result;
+}
+*/
+
+inline TreeNode* BinaryTree::reconstruct(const string& buffer, int& pos, int minValue, int maxValue) {
+	if (pos >= buffer.size()) return NULL; //using pos to check whether buffer ends is better than using char* directly.
+
+	int value;
+	memcpy(&value, &buffer[pos], sizeof(int));
+	if (value < minValue || value > maxValue) return NULL;
+
+	TreeNode* node = new TreeNode(value);
+	pos += sizeof(int);
+	node->left = reconstruct(buffer, pos, minValue, value);
+	node->right = reconstruct(buffer, pos, value, maxValue);
+	return node;
+}
+
+
+// Decodes your encoded data to tree.
+TreeNode* BinaryTree::deserialize(string data) {
+	int pos = 0;
+
+	return reconstruct(data, pos, INT_MIN, INT_MAX);
+
+}
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec;
+// codec.deserialize(codec.serialize(root));
+
+#pragma endregion
+

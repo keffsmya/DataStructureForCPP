@@ -3,6 +3,8 @@
 #include <string>
 #include <memory>
 #include "stdafx.h"
+#include <queue>
+#include <map>
 #include "DataStructure.h"
 
 using namespace std;
@@ -53,8 +55,43 @@ public:
 
 	//LeetCode_508_MostFrequentSubtreeSum
 	vector<int> findFrequentTreeSum(TreeNode* root);
-	int countSubtreeSums(TreeNode* node, map<int, int> &counts, int& maxCount)£»£»
+	int countSubtreeSums(TreeNode* node, map<int, int> &counts, int& maxCount);
 
+	//LeetCode_404_SumofLeftLeaves
+	int sumOfLeftLeaves(TreeNode* root);
+	int countLeftLeavesSum(TreeNode* root);
+
+	//LeetCode_513_FindBottomLeftTreeValue
+	int findBottomLeftValue(TreeNode* root);
+	void findBottomLeftValue(TreeNode* root, int& maxDepth, int& leftVal, int depth);
+
+	//LeetCode_671_SecondMinimunNodeInaBinaryTree
+	int findSecondMinimumValue(TreeNode* root);
+	void findSecondMinimumValue(TreeNode* root, vector<int>& q);
+	int dfs_secondMinVal(TreeNode* p, int first);
+
+
+	//LeetCode_617_MergeTwoBinaryTrees
+	TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2);
+
+	//LeetCode_450_DeleteNodeinaBST
+	TreeNode* deleteNode(TreeNode* root, int key);
+
+
+	//LeetCode_116_PopulatingNextRightPointersInEachNode
+	void connect(TreeLinkNode *root);
+	void getLinkTreeIntoMap(TreeLinkNode* root, map<int, TreeLinkNode*> m);
+
+
+	
+	// Encodes a tree to a single string.
+	string serialize(TreeNode* root);
+
+	void inorderDFS(TreeNode* root, string& order);
+
+	TreeNode* reconstruct(const string& buffer, int& pos, int minValue, int maxValue);
+	// Decodes your encoded data to tree.
+	TreeNode* deserialize(string data);
 private:
 	int dfs(TreeNode* node, int& lup);
 }*pBinaryTree;

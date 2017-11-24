@@ -35,6 +35,14 @@ public:
 	}
 }*pTreeNode;
 
+typedef struct TreeLinkNode 
+{
+	int val;
+	TreeLinkNode *left, *right, *next;
+	TreeLinkNode(int x) : val(x), left(NULL), right(NULL), next(NULL) {}
+}*pTreeLinkNode;
+
+
 
 typedef class BSTree
 {
@@ -44,3 +52,6 @@ public:
 	bool isEmpty();
 	pTreeNode RootPtr;
 }*pBSTree;
+
+
+
