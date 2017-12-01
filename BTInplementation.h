@@ -101,7 +101,7 @@ public:
 
 	//LeetCode_337_HouseRobberIII
 	int rob(TreeNode* root);
-	void findAllRootToLeavesPaths(TreeNode* node, vector<int>& path, vector<int>& sums);
+	int tryRob(TreeNode* root, int& l, int& r);
 private:
 	int dfs(TreeNode* node, int& lup);
 }*pBinaryTree;

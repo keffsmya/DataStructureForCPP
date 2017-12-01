@@ -7,6 +7,7 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <queue>
 
 using namespace std;
 
@@ -261,5 +262,44 @@ void BSTIterator::find_next(TreeNode* root)
 		p = p->left;
 	}
 }
+
+#pragma endregion
+
+#pragma region 
+
+/*
+Given n, how many structurally unique BST's (binary search trees) that store values 1...n?
+
+For example,
+Given n = 3, there are a total of 5 unique BST's.
+
+1         3     3      2      1
+\       /     /      / \      \
+3     2     1      1   3      2
+/     /       \                 \
+2     1         2                 3
+*/
+int BSTreeOperation::numTrees(int n)
+{
+	vector<int> dp(n + 1);
+
+
+	dp[0] = 1;
+	dp[1] = 1;
+
+	for (int level = 2; level <= n; level++)
+	{
+		for (int root = 1; root <= level; root++)
+		{
+			dp[level] += dp[level - root] * dp[root - 1];
+		}
+
+	}
+	return dp[n];
+	
+
+}
+
+
 
 #pragma endregion

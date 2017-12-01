@@ -48,7 +48,10 @@ public:
 	bool FindTargetInASortedArray(vector<int>& vec, int target);
 
 
-	
+
+	//LeetCode_96_UniqueBinarySearchTree
+	int numTrees(int n);
+
 };
 
 

@@ -39,15 +39,21 @@ public:
 
 int main(void)
 {
-	string mystr;
-	int targetNum;
-	MainProgramNeed* mfn = new MainProgramNeed();
-	while (true)
-	{
-		cin >> targetNum;
+	int n = 4;
+	vector<int> dp(n + 2);
+	dp[0] = 1;
+	dp[1] = 1;
 
-		mfn->function1(targetNum, mystr);
+	//直接从n=2 开始算了，简化消耗所以简明的结果直接使用预定值
+	for (int level = 2; level <= n; level++)
+	{
+		for (int root = 1; root <= level; root++)
+		{
+			dp[level] += dp[level - root] * dp[root - 1];
+		}
+
 	}
+	cout << dp[n]<<endl;
 
 	system("pause");
 	return 0;

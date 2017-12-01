@@ -930,12 +930,12 @@ Maximum amount of money the thief can rob = 4 + 5 = 9.
 //}
 #pragma endregion
 
-int rob(TreeNode* root) {
+int BinaryTree::rob(TreeNode* root) {
 	int l, r;
 	return tryRob(root, l, r);
 }
 
-int tryRob(TreeNode* root, int& l, int& r) {
+int BinaryTree::tryRob(TreeNode* root, int& l, int& r) {
 	if (!root)
 		return 0;
 
@@ -947,5 +947,9 @@ int tryRob(TreeNode* root, int& l, int& r) {
 }
 
 #pragma endregion
+
+
+
+
 
 
