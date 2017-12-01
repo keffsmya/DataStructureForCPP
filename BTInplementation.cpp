@@ -729,7 +729,7 @@ std::vector<std::string> split(std::string str, std::string pattern)
 */
 
 inline TreeNode* BinaryTree::reconstruct(const string& buffer, int& pos, int minValue, int maxValue) {
-	if (pos >= buffer.size()) return NULL; //using pos to check whether buffer ends is better than using char* directly.
+	if (pos >= (int)buffer.size()) return NULL; //using pos to check whether buffer ends is better than using char* directly.
 
 	int value;
 	memcpy(&value, &buffer[pos], sizeof(int));
@@ -756,4 +756,196 @@ TreeNode* BinaryTree::deserialize(string data) {
 // codec.deserialize(codec.serialize(root));
 
 #pragma endregion
+
+
+
+/****************************未掌握****************************/
+#pragma region LeetCode_117_PopulatingNextRightPointersinEachNodeII
+
+/*Follow up for problem "Populating Next Right Pointers in Each Node".
+
+What if the given tree could be any binary tree ? Would your previous solution still work ?
+
+Note :
+
+	You may only use constant extra space.
+	For example,
+	Given the following binary tree,
+	    1
+	   / \
+	  2    3
+	 / \    \
+	4   5    7
+	After calling your function, the tree should look like :
+        1->NULL
+       / \
+      2 -> 3->NULL
+     / \    \
+    4-> 5 -> 7->NULL*/
+
+void BinaryTree::connect_II(TreeLinkNode *root) {
+	while (root != nullptr) {
+		//声明一个新节点，作为新头
+		TreeLinkNode* tempChild = new TreeLinkNode(0);
+		//再声明一个指针指向这个头
+		TreeLinkNode* currentChild = tempChild;
+		//使用root来作为循环条件，只要root不为空
+		while (root != nullptr) {
+			//首先判断左边，
+			if (root->left != nullptr) 
+			{ 
+				currentChild->next = root->left; 
+				currentChild = currentChild->next;
+			}
+			if (root->right != nullptr) 
+			{ 
+				currentChild->next = root->right;
+				currentChild = currentChild->next;
+			}
+			root = root->next;
+		}
+		root = tempChild->next;
+	}
+
+		
+
+}
+#pragma endregion
+
+//这是一种遍历并保存路径的好方法
+#pragma region LeetCode_113_PathSumII
+
+/*
+Given a binary tree and a sum, find all root - to - leaf paths where each path's sum equals the given sum.
+
+For example :
+Given the below binary tree and sum = 22,
+        5
+       / \
+      4   8
+     /   / \
+    11  13  4
+   / \     / \
+  7   2    5  1
+return
+[
+	[5, 4, 11, 2],
+	[5, 8, 4, 5]
+]
+*/
+
+
+vector<vector<int>> BinaryTree::pathSum(TreeNode* root, int sum) {
+	vector<vector<int> > paths;
+	vector<int> path;
+	findPaths(root, sum, path, paths);
+	return paths;
+
+}
+
+
+void BinaryTree::findPaths(TreeNode* node, int sum, vector<int>& path, vector<vector<int> >& paths) {
+	if (!node) return;
+	path.push_back(node->val);
+	if (!node->left && !node->right&&node->val == sum) paths.push_back(path);
+
+	//然后子树带着剩余值又开始进行下一轮的查找，因为本迭代函数具有判空操作，所以不需要在进行一次判空
+	findPaths(node->left, sum - node->val, path, paths);
+	findPaths(node->right, sum - node->val, path, paths);
+	//最后一步要把存下来的出栈，不然结果不对，很重要
+	path.pop_back();
+}
+
+
+#pragma endregion
+
+
+/*****************没有很好的理解*******************/
+#pragma region LeetCode_337_HouseRobberIII
+/*
+The thief has found himself a new place for his thievery again.
+There is only one entrance to this area, called the "root."
+Besides the root, each house has one and only one parent house.
+After a tour, the smart thief realized that "all houses in this place forms a binary tree".
+It will automatically contact the police 
+if two directly - linked houses were broken into on the same night.
+
+Determine the maximum amount of money the thief can rob tonight without alerting the police.
+
+Example 1:
+     3
+    / \
+   2   3
+    \   \
+     3   1
+Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
+Example 2:
+     3
+    / \
+   4   5
+  / \   \
+ 1   3   1
+Maximum amount of money the thief can rob = 4 + 5 = 9.
+*/
+
+#pragma region myAttempt
+
+//int BinaryTree::rob(TreeNode* root) {
+//	vector<int> sums;
+//	vector<int> path;
+//	findAllRootToLeavesPaths(root, path, sums);
+//	if ((int)sums.size() == 0) return 0;
+//	int temp = INT_MIN;
+//	for (vector<int>::iterator iter = sums.begin(); iter != sums.end(); iter++)
+//	{
+//		if (*iter > temp)
+//		{
+//			temp = *iter;
+//		}
+//	}
+//
+//	return temp;
+//}
+//
+//void BinaryTree::findAllRootToLeavesPaths(TreeNode* node, vector<int>& path, vector<int>& sums)
+//{
+//	if (!node) return;
+//	path.push_back(node->val);
+//	int path_sum = 0;
+//	if (!node->left && !node->right)
+//	{
+//		
+//		for (vector<int>::iterator iter = path.begin(); iter != path.end(); iter++)
+//		{
+//			path_sum += *iter;
+//		}
+//	}
+//	sums.push_back(path_sum);
+//	if (node->left&&node->right)
+//	{
+//		if(node->left>node->right)  findAllRootToLeavesPaths(node->left, path, sums);
+//		else findAllRootToLeavesPaths(node->right, path, sums);
+//	}
+//	path.pop_back();
+//}
+#pragma endregion
+
+int rob(TreeNode* root) {
+	int l, r;
+	return tryRob(root, l, r);
+}
+
+int tryRob(TreeNode* root, int& l, int& r) {
+	if (!root)
+		return 0;
+
+	int ll = 0, lr = 0, rl = 0, rr = 0;
+	l = tryRob(root->left, ll, lr);
+	r = tryRob(root->right, rl, rr);
+
+	return max(root->val + ll + lr + rl + rr, l + r);
+}
+
+#pragma endregion
+
 

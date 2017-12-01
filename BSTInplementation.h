@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <set>
+#include <stack>
 #include "stdafx.h"
 #include "DataStructure.h"
 
@@ -50,9 +51,20 @@ public:
 	
 };
 
-class NMTreeOperation
-{
 
+class BSTIterator {
+
+	stack<TreeNode*> stk;
+public:
+	BSTIterator(TreeNode *root);
+
+		/** @return whether we have a next smallest number */
+	bool hasNext();
+
+		/** @return the next smallest number */
+		int next();
+
+		void find_next(TreeNode* root);
 };
 
 

@@ -82,7 +82,7 @@ public:
 	void connect(TreeLinkNode *root);
 	void getLinkTreeIntoMap(TreeLinkNode* root, map<int, TreeLinkNode*> m);
 
-
+	void connect_II(TreeLinkNode *root);
 	
 	// Encodes a tree to a single string.
 	string serialize(TreeNode* root);
@@ -92,6 +92,16 @@ public:
 	TreeNode* reconstruct(const string& buffer, int& pos, int minValue, int maxValue);
 	// Decodes your encoded data to tree.
 	TreeNode* deserialize(string data);
+
+
+	//LeetCode_113_PathSumII
+	vector<vector<int>> pathSum(TreeNode* root, int sum);
+	void findPaths(TreeNode* node, int sum, vector<int>& path, vector<vector<int> >& paths);
+
+
+	//LeetCode_337_HouseRobberIII
+	int rob(TreeNode* root);
+	void findAllRootToLeavesPaths(TreeNode* node, vector<int>& path, vector<int>& sums);
 private:
 	int dfs(TreeNode* node, int& lup);
 }*pBinaryTree;
