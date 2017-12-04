@@ -949,6 +949,46 @@ int BinaryTree::tryRob(TreeNode* root, int& l, int& r) {
 #pragma endregion
 
 
+#pragma region LeetCode_129_SumRoottoLeafNumbers
+int BinaryTree::sumNumbers(TreeNode* root) {
+	return sumNumbersUtil(root,0);
+}
+
+//这个辅助函数中的整形参数不能是引用类型，要保证每一次都是直接的声明变量，如果是引用
+//那么引用的数字不会是每次都想要的，会把不需要的部分加进去，结果会大很多
+int BinaryTree :: sumNumbersUtil(TreeNode* node, int val)
+{
+	if (!node) return 0;
+
+	val = val * 10 + node->val;
+
+	if (!node->left && !node->right) return val;
+
+	return sumNumbersUtil(node->left, val) + sumNumbersUtil(node->right, val);
+}
+
+#pragma endregion
+
+
+
+#pragma region LeetCode_144_BinaryTreePreorderTraverse
+vector<int> BinaryTree::preorderTraversal(TreeNode* root) {
+	vector<int> res;
+
+	preorderTraversalUtil(root, res);
+	return res;
+}
+
+void BinaryTree::preorderTraversalUtil(TreeNode* root,vector<int>& vec)
+{
+	if (!root) return;
+	vec.push_back(root->val);
+	preorderTraversalUtil(root->left,vec);
+	preorderTraversalUtil(root->right, vec);
+}
+
+
+#pragma endregion
 
 
 

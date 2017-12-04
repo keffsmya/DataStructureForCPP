@@ -102,6 +102,17 @@ public:
 	//LeetCode_337_HouseRobberIII
 	int rob(TreeNode* root);
 	int tryRob(TreeNode* root, int& l, int& r);
+
+
+
+	//LeetCode_129_SumRoottoLeafNumbers
+	int sumNumbers(TreeNode* root);
+	int sumNumbersUtil(TreeNode* node, int val);
+
+
+	//LeetCode_144_BinaryTreePreorderTraverse
+	vector<int> preorderTraversal(TreeNode* root);
+	void preorderTraversalUtil(TreeNode* root, vector<int>& vec);
 private:
 	int dfs(TreeNode* node, int& lup);
 }*pBinaryTree;
