@@ -146,6 +146,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayInplementation.h" />
     <ClInclude Include="BSTInplementation.h" />
     <ClInclude Include="BTInplementation.h" />
     <ClInclude Include="CustomCalculator.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="TestingPointer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArrayInplementation.cpp" />
     <ClCompile Include="BSTInplementation.cpp" />
     <ClCompile Include="BTInplementation.cpp" />
     <ClCompile Include="class LeetCode_10_RegularExpressionMatching.cpp" />
